@@ -15,6 +15,7 @@
  */
 
 export * from './ACK';
+export * from './CALL_STATES';
 export * from './GROUP_SETTING_TYPE';
 export * from './LogoutReason';
 export * from './MSG_TYPE';

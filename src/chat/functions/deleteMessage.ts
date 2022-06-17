@@ -15,7 +15,7 @@
  */
 
 import { assertGetChat } from '../../assert';
-import { Wid } from '../../whatsapp';
+import { Cmd, Wid } from '../../whatsapp';
 import { MSG_TYPE, SendMsgResult } from '../../whatsapp/enums';
 import { getMessageById } from '.';
 
@@ -24,10 +24,23 @@ export interface DeleteMessageReturn {
   sendMsgResult: Promise<SendMsgResult>;
   isRevoked: boolean;
   isDeleted: boolean;
+  isSentByMe: boolean;
 }
 
 /**
  * Delete a message
+ *
+ * @example
+ * ```javascript
+ * // Delete a message
+ * WPP.chat.deleteMessage('[number]@callback.us', 'msgid');
+ * // Delete a list of messages
+ * WPP.chat.deleteMessage('[number]@callback.us', ['msgid1', 'msgid2]);
+ * // Delete a message and delete media
+ * WPP.chat.deleteMessage('[number]@callback.us', 'msgid', true);
+ * // Revoke a message
+ * WPP.chat.deleteMessage('[number]@callback.us', 'msgid', true, true);
+ * ```
  *
  * @category Message
  */
@@ -70,32 +83,36 @@ export async function deleteMessage(
     let sendMsgResult: SendMsgResult = SendMsgResult.ERROR_UNKNOWN;
     let isRevoked = false;
     let isDeleted = false;
+    const isSentByMe = msg.isSentByMe;
 
-    if (msg.type === MSG_TYPE.REVOKED) {
+    if (msg.type === MSG_TYPE.REVOKED && revoke) {
       // Message is already revoked
       sendMsgResult = SendMsgResult.ERROR_UNKNOWN;
       isRevoked = true;
     } else if (revoke) {
-      if (typeof chat.canSenderRevoke === 'function') {
-        sendMsgResult = await chat.sendRevokeMsgs([msg], deleteMediaInDevice);
-        if (sendMsgResult === SendMsgResult.OK) {
-          isRevoked = true;
-        }
-      } else {
-        sendMsgResult = await chat.sendRevokeMsgs(
-          [msg],
-          'Sender',
-          deleteMediaInDevice
-        );
-        if (sendMsgResult === SendMsgResult.OK) {
-          isRevoked = true;
+      if (msg.type === 'list') {
+        (msg as any).__x_isUserCreatedType = true;
+      }
+
+      Cmd.sendRevokeMsgs(chat, [msg], { clearMedia: deleteMediaInDevice });
+
+      if (chat.promises.sendRevokeMsgs) {
+        const result = await chat.promises.sendRevokeMsgs;
+        if (Array.isArray(result)) {
+          sendMsgResult = result[0];
         }
       }
+      isRevoked = msg.isRevokedByMe;
     } else {
-      sendMsgResult = await chat.sendDeleteMsgs([msg], deleteMediaInDevice);
-      if (sendMsgResult === SendMsgResult.OK) {
-        isDeleted = true;
+      Cmd.sendDeleteMsgs(chat, [msg], deleteMediaInDevice);
+
+      if (chat.promises.sendDeleteMsgs) {
+        const result = await chat.promises.sendDeleteMsgs;
+        if (Array.isArray(result)) {
+          sendMsgResult = result[0];
+        }
       }
+      isDeleted = Boolean(chat.msgs.get(msg.id));
     }
 
     results.push({
@@ -103,6 +120,7 @@ export async function deleteMessage(
       sendMsgResult,
       isRevoked,
       isDeleted,
+      isSentByMe,
     });
   }
 

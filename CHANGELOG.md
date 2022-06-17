@@ -1,3 +1,61 @@
+## 2.7.1 (2022-06-15)
+
+
+
+# 2.7.0 (2022-06-15)
+
+
+### Features
+
+* Added Google Analytics ([946cc80](https://github.com/wppconnect-team/wa-js/commit/946cc80b691adcc2818a0702b821898f73311df7))
+
+
+
+# 2.6.0 (2022-06-08)
+
+
+### Bug Fixes
+
+* Fixed doc type for WPP.chat.sendFileMessage ([7701d88](https://github.com/wppconnect-team/wa-js/commit/7701d882df10e87e2ac477805f97a5984dd14870))
+
+
+
+## 2.5.1 (2022-06-06)
+
+
+### Bug Fixes
+
+* Fixed revoke messages for list type ([7938ae7](https://github.com/wppconnect-team/wa-js/commit/7938ae7dab6bfa9e44f68f78dab01bbeeeeca0b6))
+
+
+
+# 2.5.0 (2022-06-04)
+
+
+### Features
+
+* Added option to filter chat and contacts with label (close [#436](https://github.com/wppconnect-team/wa-js/issues/436)) ([bff74df](https://github.com/wppconnect-team/wa-js/commit/bff74df6bc55ce657b97957752e06e0aa5c09d14))
+
+
+
+## 2.4.1 (2022-05-31)
+
+
+### Bug Fixes
+
+* Fixed detect mentionedList for invalid wids ([#427](https://github.com/wppconnect-team/wa-js/issues/427)) ([c701dc3](https://github.com/wppconnect-team/wa-js/commit/c701dc3b8b04cce1e51dd5dda12bf5e80e11de2e))
+
+
+
+# 2.4.0 (2022-05-28)
+
+
+### Bug Fixes
+
+* Exported related reactions classes ([466ebad](https://github.com/wppconnect-team/wa-js/commit/466ebad34c1545121c681df0196539792b09f7eb))
+
+
+
 # 2.3.0 (2022-05-27)
 
 

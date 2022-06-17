@@ -17,8 +17,8 @@
 /* eslint-disable simple-import-sort/exports */
 /* eslint-disable simple-import-sort/imports */
 import './config';
-
 import './deviceName';
+import './gtag';
 
 import * as webpack from './webpack';
 
@@ -28,6 +28,8 @@ export { isInjected, isReady } from './webpack';
 export { config } from './config';
 
 export * as blocklist from './blocklist';
+export * as call from './call';
+export * as catalog from './catalog';
 export * as chat from './chat';
 export * as conn from './conn';
 export * as contact from './contact';

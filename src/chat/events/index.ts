@@ -19,3 +19,4 @@ import './registerLiveLocationUpdateEvent';
 import './registerNewMessageEvent';
 import './registerPresenceChange';
 import './registerRevokeMessageEvent';
+import './registerReactionsEvent';

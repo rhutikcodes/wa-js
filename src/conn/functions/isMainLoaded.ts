@@ -17,7 +17,7 @@
 import { Cmd } from '../../whatsapp';
 
 /**
- * Check is main interface is loaded and authenticated
+ * Check is main interface is authenticated and loaded, bot not synced
  *
  * @example
  * ```javascript
