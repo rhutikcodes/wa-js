@@ -82,29 +82,31 @@ function registerLiveLocationUpdateEvent() {
       return;
     }
 
-    internalEv.emit('chat.live_location_start', {
-      id: msg.sender!,
-      msgId: msg.id,
-      chat: msg.chat!.id,
-      lat: msg.lat!,
-      lng: msg.lng!,
-      accuracy: msg.accuracy,
-      speed: msg.speed,
-      degrees: msg.degrees,
-      shareDuration: msg.shareDuration!,
-    });
+    queueMicrotask(() => {
+      internalEv.emit('chat.live_location_start', {
+        id: msg.sender!,
+        msgId: msg.id,
+        chat: msg.chat!.id,
+        lat: msg.lat!,
+        lng: msg.lng!,
+        accuracy: msg.accuracy,
+        speed: msg.speed,
+        degrees: msg.degrees,
+        shareDuration: msg.shareDuration!,
+      });
 
-    LiveLocationStore.update(msg.chat!.id)
-      .then((liveLocation) => {
-        liveLocation.startViewingMap();
-      })
-      .catch(() => null);
+      LiveLocationStore.update(msg.chat!.id)
+        .then((liveLocation) => {
+          liveLocation.startViewingMap();
+        })
+        .catch(() => null);
+    });
   });
 
   /**
    * Start for all active chats
    */
-  ChatStore.once('collection_has_synced', () => {
+  internalEv.once('conn.main_ready', () => {
     const chats = ChatStore.getModelsArray().slice(0, config.liveLocationLimit);
     chats.forEach((chat) => {
       LiveLocationStore.update(chat.id)
