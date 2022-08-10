@@ -15,6 +15,7 @@
  */
 
 export * from './collections';
+export * as contants from './contants';
 export * as enums from './enums';
 export { _moduleIdMap } from './exportModule';
 export * as functions from './functions';

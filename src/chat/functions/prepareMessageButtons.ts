@@ -21,9 +21,11 @@ import {
   TemplateButtonCollection,
   TemplateButtonModel,
 } from '../../whatsapp';
+import { DROP_ATTR } from '../../whatsapp/contants';
 import { wrapModuleFunction } from '../../whatsapp/exportModule';
 import {
   createMsgProtobuf,
+  encodeMaybeMediaType,
   mediaTypeFromProtobuf,
   typeAttributeFromProtobuf,
 } from '../../whatsapp/functions';
@@ -56,7 +58,7 @@ export interface MessageButtonsOptions {
    * Set to use template buttons instead of reply buttons.
    * @default: undefined - auto detect
    */
-  useTemplateButtons?: boolean;
+  useTemplateButtons?: boolean | null;
   /**
    * Footer text for buttons
    */
@@ -81,7 +83,10 @@ export function prepareMessageButtons<T extends RawMessage>(
     throw 'Buttons options is not a array';
   }
 
-  if (typeof options.useTemplateButtons === 'undefined') {
+  if (
+    typeof options.useTemplateButtons === 'undefined' ||
+    options.useTemplateButtons === null
+  ) {
     options.useTemplateButtons = options.buttons.some(
       (button) => 'phoneNumber' in button || 'url' in button
     );
@@ -279,6 +284,42 @@ webpack.onInjected(() => {
     return r;
   });
 
+  /**
+   * Delayed register to ensure is after the common protobuf
+   * Based on https://github.com/adiwajshing/Baileys/commit/9f3b00d58d4f6b1527db42069acafff01123cbf8
+   */
+  setTimeout(() => {
+    wrapModuleFunction(createMsgProtobuf, (func, ...args) => {
+      const proto = func(...args);
+
+      if (proto.templateMessage) {
+        proto.viewOnceMessage = {
+          message: {
+            templateMessage: proto.templateMessage,
+          },
+        };
+        delete proto.templateMessage;
+      }
+      if (proto.buttonsMessage) {
+        proto.viewOnceMessage = {
+          message: {
+            buttonsMessage: proto.buttonsMessage,
+          },
+        };
+        delete proto.buttonsMessage;
+      }
+      return proto;
+    });
+  }, 100);
+
+  wrapModuleFunction(encodeMaybeMediaType, (func, ...args) => {
+    const [type] = args;
+    if (type === 'button') {
+      return DROP_ATTR;
+    }
+    return func(...args);
+  });
+
   wrapModuleFunction(mediaTypeFromProtobuf, (func, ...args) => {
     const [proto] = args;
     if (proto.templateMessage?.hydratedTemplate) {
@@ -305,6 +346,14 @@ webpack.onInjected(() => {
 
       return 'text';
     }
+
+    if (
+      proto.buttonsMessage?.headerType === 1 ||
+      proto.buttonsMessage?.headerType === 2
+    ) {
+      return 'text';
+    }
+
     return func(...args);
   });
 });

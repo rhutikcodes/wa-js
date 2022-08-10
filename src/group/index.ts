@@ -14,4 +14,6 @@
  * limitations under the License.
  */
 
+import './events';
+
 export * from './functions';

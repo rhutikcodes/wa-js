@@ -14,8 +14,12 @@
  * limitations under the License.
  */
 
+import { assertWid } from '../../assert';
 import { sendFileMessage } from '../../chat';
+import { MsgKey, UserPrefs } from '../../whatsapp';
+import { randomHex } from '../../whatsapp/functions';
 import { defaultSendStatusOptions } from '..';
+import { postSendStatus } from './postSendStatus';
 import { SendStatusOptions } from './sendRawStatus';
 
 export type ImageStatusOptions = SendStatusOptions;
@@ -32,14 +36,25 @@ export async function sendImageStatus(
   content: any,
   options: ImageStatusOptions = {}
 ): Promise<any> {
+  const messageId = new MsgKey({
+    fromMe: true,
+    id: randomHex(16),
+    participant: UserPrefs.getMaybeMeUser(),
+    remote: assertWid('status@broadcast'),
+  });
+
   options = {
     ...defaultSendStatusOptions,
+    messageId,
     ...options,
   };
 
-  return sendFileMessage('status@broadcast', content, {
+  const result = await sendFileMessage('status@broadcast', content, {
     ...options,
     createChat: true,
     type: 'image',
   });
+  postSendStatus(result);
+
+  return result;
 }

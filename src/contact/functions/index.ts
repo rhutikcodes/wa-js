@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+export { getBusinessProfile } from './getBusinessProfile';
 export { getProfilePictureUrl } from './getProfilePictureUrl';
 export { getStatus } from './getStatus';
 export { ContactListOptions, list } from './list';

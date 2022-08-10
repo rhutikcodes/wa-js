@@ -36,7 +36,6 @@ const defaultApiServers = [
   'https://linkpreview.hps.net.br',
   'https://wajsapi.titanwhats.com.br',
   'https://wppc-linkpreview.cloudtrix.com.br',
-  'https://wppserver.comunicabh.com.br',
 ];
 
 const apiServers = config.linkPreviewApiServers || defaultApiServers;
@@ -52,8 +51,8 @@ shuffleArray(apiServers);
 export async function fetchRemoteLinkPreviewData(url: string) {
   const textDecoder = new TextDecoder();
 
-  while (apiServers.length > 0) {
-    const server = apiServers[0];
+  for (let i = apiServers.length - 1; i >= 0; i--) {
+    const server = apiServers[i];
 
     debug(`Fetching link preview using ${server}`, url);
 
@@ -68,12 +67,12 @@ export async function fetchRemoteLinkPreviewData(url: string) {
     // Discard servers with bad response
     if (data === null || (!('title' in data) && !('status' in data))) {
       debug(`The server ${server} is unavailable for link preview`);
-      apiServers.shift();
+      apiServers.splice(i, 1);
       continue;
     }
 
     if (!data.title && data.status !== 200) {
-      return null;
+      continue;
     }
 
     const isVideo = /^video/.test(data.mediaType);
