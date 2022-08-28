@@ -23,5 +23,6 @@ export { colorIsInLabelPalette } from './colorIsInLabelPalette';
 export { deleteAllLabels } from './deleteAllLabels';
 export { deleteLabel, DeleteLabelReturn } from './deleteLabel';
 export { getAllLabels } from './getAllLabels';
+export { getLabelById } from './getLabelById';
 export { getLabelColorPalette } from './getLabelColorPalette';
 export { getNewLabelColor } from './getNewLabelColor';

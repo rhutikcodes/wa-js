@@ -1,5 +1,5 @@
 /*!
- * Copyright 2021 WPPConnect Team
+ * Copyright 2022 WPPConnect Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,10 +14,14 @@
  * limitations under the License.
  */
 
-export { get } from './get';
-export { getMyStatus } from './getMyStatus';
-export { ImageStatusOptions, sendImageStatus } from './sendImageStatus';
-export { sendRawStatus, SendStatusOptions } from './sendRawStatus';
-export { sendReadStatus } from './sendReadStatus';
-export { sendTextStatus, TextStatusOptions } from './sendTextStatus';
-export { sendVideoStatus, VideoStatusOptions } from './sendVideoStatus';
+import { Config } from './Config';
+
+export interface ConfigEventTypes {
+  'config.update': {
+    config: Config;
+    key: string | number | symbol;
+    path: (string | number | symbol)[];
+    target: any;
+    value: any;
+  };
+}

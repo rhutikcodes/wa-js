@@ -14,10 +14,28 @@
  * limitations under the License.
  */
 
-export { get } from './get';
-export { getMyStatus } from './getMyStatus';
-export { ImageStatusOptions, sendImageStatus } from './sendImageStatus';
-export { sendRawStatus, SendStatusOptions } from './sendRawStatus';
-export { sendReadStatus } from './sendReadStatus';
-export { sendTextStatus, TextStatusOptions } from './sendTextStatus';
-export { sendVideoStatus, VideoStatusOptions } from './sendVideoStatus';
+import { createWid } from '../../util';
+import { queryCatalog } from '../../whatsapp/functions';
+
+/**
+ * Retrieves product by contact id
+ *
+ * @example
+ * Get products of catalogs
+ * ```javascript
+ * await WPP.catalog.getProducts('5521985625689@c.us', 10);
+ * ```
+ * @return A array with products
+ * @category Catalog
+ */
+
+export async function getProducts(chatId: string, qnt: number): Promise<any[]> {
+  const { data } = await queryCatalog(
+    createWid(chatId),
+    undefined,
+    qnt || 10,
+    100,
+    100
+  );
+  return data;
+}

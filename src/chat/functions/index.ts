@@ -15,6 +15,7 @@
  */
 
 export { archive, unarchive } from './archive';
+export { canMarkPlayed } from './canMarkPlayed';
 export { canMute } from './canMute';
 export { clear } from './clear';
 export { delete } from './delete';
@@ -26,12 +27,14 @@ export { get } from './get';
 export { getLastSeen } from './getLastSeen';
 export { getMessageById } from './getMessageById';
 export { getMessages, GetMessagesOptions } from './getMessages';
+export { getPlatformFromMessage } from './getPlatformFromMessage';
 export { ChatListOptions, list } from './list';
 export { markIsComposing } from './markIsComposing';
 export { markIsPaused } from './markIsPaused';
 export { markIsRead } from './markIsRead';
 export { markIsRecording } from './markIsRecording';
 export { markIsUnread } from './markIsUnread';
+export { markPlayed } from './markPlayed';
 export { mute } from './mute';
 export { openChatAt } from './openChatAt';
 export { openChatBottom } from './openChatBottom';
