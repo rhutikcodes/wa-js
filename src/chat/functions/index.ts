@@ -17,11 +17,13 @@
 export { archive, unarchive } from './archive';
 export { canMarkPlayed } from './canMarkPlayed';
 export { canMute } from './canMute';
+export { canReply } from './canReply';
 export { clear } from './clear';
 export { delete } from './delete';
 export { deleteMessage, DeleteMessageReturn } from './deleteMessage';
 export { downloadMedia } from './downloadMedia';
 export { find } from './find';
+export { forwardMessage, ForwardMessagesOptions } from './forwardMessage';
 export { generateMessageID } from './generateMessageID';
 export { get } from './get';
 export { getLastSeen } from './getLastSeen';

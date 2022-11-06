@@ -1,5 +1,5 @@
-## 2.13.2 (2022-10-13)
+## 2.14.1 (2022-11-01)
 
 ### Bug Fixes
 
-- Fixed WPP.chat.sendCreatePollMessage function ([b688d95](https://github.com/wppconnect-team/wa-js/commit/b688d957a13d0a56311649d55ffd042fc6f3bea3))
+- Fixed WPP.chat.starMessage function (fix [#729](https://github.com/wppconnect-team/wa-js/issues/729)) ([bfa6969](https://github.com/wppconnect-team/wa-js/commit/bfa69697e8adbc8e2da82b4a9984d46daf01d79f))

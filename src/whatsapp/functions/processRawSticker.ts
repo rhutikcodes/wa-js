@@ -1,5 +1,5 @@
 /*!
- * Copyright 2021 WPPConnect Team
+ * Copyright 2022 WPPConnect Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,36 +15,23 @@
  */
 
 import { exportModule } from '../exportModule';
-import { Wid } from '.';
+import { OpaqueData } from '../misc';
 
-/** @whatsapp 86875
- * @whatsapp 56891 >= 2.2212.8
- * @whatsapp 656891 >= 2.2222.8
+/**
+ * @whatsapp 232294 >= 2.2242.6
  */
-export declare class WapClass {
-  queryExist(contactId: string): Promise<{
-    status: 200;
-    jid: Wid;
-    biz?: true;
-  }>;
-  queryDisappearingMode(contactId: Wid): Promise<{
-    status: 200;
-    duration: number;
-    settingTimestamp: number;
-  }>;
-}
-
-/** @whatsapp 86875
- * @whatsapp 56891 >= 2.2212.8
- * @whatsapp 656891 >= 2.2222.8
- */
-export declare const Wap: WapClass;
+export declare function processRawSticker(data: OpaqueData): Promise<{
+  type: 'sticker';
+  mediaBlob: OpaqueData;
+  mimetype: string;
+  fullWidth: number;
+  fullHeight: number;
+}>;
 
 exportModule(
   exports,
   {
-    WapClass: 'instance.constructor',
-    Wap: 'instance',
+    processRawSticker: 'processRawSticker',
   },
-  (m) => m.instance?.queryExist
+  (m) => m.processRawSticker
 );

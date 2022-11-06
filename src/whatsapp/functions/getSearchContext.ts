@@ -14,35 +14,43 @@
  * limitations under the License.
  */
 
+import * as webpack from '../../webpack';
 import { exportModule } from '../exportModule';
+import { MsgKey, MsgLoad } from '../misc';
 import { ChatModel, MsgModel } from '../models';
-import { BaseCollection } from './BaseCollection';
 
-/** @whatsapp 69951
- * @whatsapp 669951 >= 2.2222.8
+/**
+ * @whatsapp 738599 >= 2.2242.5
  */
-export declare class ChatCollection extends BaseCollection<ChatModel> {
-  static model: ChatModel;
-  static comparator(): any;
-  notSpam?: any;
-  promises?: any;
-  enableSortListener(e?: any): any;
-  disableSortListener(): any;
-  setIndexes(): any;
-  active(): any;
-  sync(): any;
-  getKeysForResyncMsgs(): any;
-  resyncMessages(): any;
-  unstarAllMessages(e?: any, t?: any): any;
-  forwardMessagesToChats(
-    msgs: MsgModel[],
-    chats: ChatModel[],
-    displayCaptionText?: boolean
-  ): any;
-}
+export declare function getSearchContext(
+  chat: ChatModel,
+  msg: MsgModel | MsgKey,
+  options?: {
+    isQuotedMsgAvailable: boolean;
+  }
+): {
+  collection: MsgLoad;
+  msg?: MsgModel;
+  key?: MsgKey;
+  highlightMsg: true;
+};
 
 exportModule(
   exports,
-  { ChatCollection: 'ChatCollectionImpl' },
-  (m) => m.ChatCollectionImpl
+  {
+    getSearchContext: 'getSearchContext',
+  },
+  (m) => m.getSearchContext
 );
+
+webpack.injectFallbackModule('getSearchContext', {
+  getSearchContext: (
+    chat: ChatModel,
+    msg: MsgModel | MsgKey,
+    options?: {
+      isQuotedMsgAvailable: boolean;
+    }
+  ) => {
+    return chat.getSearchContext?.(msg, options);
+  },
+});

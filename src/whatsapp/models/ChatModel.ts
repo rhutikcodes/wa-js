@@ -139,7 +139,7 @@ export declare class ChatModel extends ModelChatBase {
   loadEarlierMsgs(e?: any, t?: any): any;
   isMostRecentCMC(e?: any): boolean;
   loadRecentMsgs(e?: any): any;
-  getSearchContext(
+  getSearchContext?(
     msg: MsgModel | MsgKey,
     options?: {
       isQuotedMsgAvailable: boolean;
@@ -150,7 +150,6 @@ export declare class ChatModel extends ModelChatBase {
     key?: MsgKey;
     highlightMsg: true;
   };
-  sendStarMsgs(msgs: MsgModel[], star: boolean): any;
   sendRevokeMsgs(
     messages: MsgModel[],
     deleteMediaInDevice?: boolean
@@ -184,7 +183,11 @@ export declare class ChatModel extends ModelChatBase {
     i?: any,
     n?: any
   ): any;
-  forwardMessages(e?: any, t?: boolean): any;
+  forwardMessages(
+    msgs: MsgModel[],
+    multicast?: any,
+    displayCaptionText?: boolean
+  ): any;
   updateReadOnly(): any;
   updateIsAnnounceGrpRestrict(): any;
   sortMsgs(e?: any): any;

@@ -14,15 +14,17 @@
  * limitations under the License.
  */
 
-export * from './blobToArrayBuffer';
-export * from './blobToBase64';
-export * from './convertToFile';
-export * from './createWid';
-export * from './downloadImage';
-export * from './errors';
-export * from './fetchDataFromPNG';
-export * from './getVideoInfoFromBuffer';
-export * from './isBase64';
-export * from './resizeImage';
-export * from './types';
-export * from './wrapFunction';
+import { exportModule } from '../exportModule';
+
+/**
+ * @whatsapp 673168
+ */
+export declare function isRegistered(): boolean;
+
+exportModule(
+  exports,
+  {
+    isRegistered: ['isRegistered'],
+  },
+  (m) => m.isRegistered
+);

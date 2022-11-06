@@ -16,6 +16,7 @@
 
 import { ChatModel } from '..';
 import { exportModule } from '../exportModule';
+import { getSearchContext } from '../functions';
 import { MsgModel } from '../models';
 import { EventEmitter } from '.';
 
@@ -53,8 +54,18 @@ export declare class CmdClass extends EventEmitter {
   openMediaViewerForAlbumMedia(e?: any): void;
   productImageViewerModal(e?: any, t?: any): void;
   ephemeralDrawer(e?: any, t?: any): void;
-  sendStarMsgs(e?: any, t?: any, r?: any, n?: any): void;
-  sendUnstarMsgs(e?: any, t?: any, r?: any, n?: any): void;
+  sendStarMsgs(
+    chat: ChatModel,
+    msgs: MsgModel[],
+    id?: any,
+    toastPosition?: any
+  ): void;
+  sendUnstarMsgs(
+    chat: ChatModel,
+    msgs: MsgModel[],
+    id?: any,
+    toastPosition?: any
+  ): void;
   sendDeleteMsgs(
     chat: ChatModel,
     msgs: MsgModel[],
@@ -72,7 +83,7 @@ export declare class CmdClass extends EventEmitter {
   _openChat(e?: any, t?: any): void;
   openChatAt(
     chat: ChatModel,
-    context: ReturnType<ChatModel['getSearchContext']>
+    context: ReturnType<typeof getSearchContext>
   ): Promise<boolean>;
   openChatFromUnread(chat: ChatModel): Promise<boolean>;
   openChatBottom(chat: ChatModel): Promise<boolean>;

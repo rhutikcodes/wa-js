@@ -14,19 +14,14 @@
  * limitations under the License.
  */
 
-import { exportModule } from '../exportModule';
-
-/** @whatsapp 88555 */
-export declare function isMDBackend(): boolean;
-
-/** @whatsapp 88555 */
-export declare function isLegacyWebdBackend(): boolean;
-
-exportModule(
-  exports,
-  {
-    isMDBackend: 'isMDBackend',
-    isLegacyWebdBackend: 'isLegacyWebdBackend',
-  },
-  (m) => m.isMDBackend
-);
+export function blobToArrayBuffer(blob: Blob): Promise<ArrayBuffer> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onloadend = function () {
+      resolve(reader.result as ArrayBuffer);
+    };
+    reader.onabort = reject;
+    reader.onerror = reject;
+    reader.readAsArrayBuffer(blob);
+  });
+}
