@@ -1,5 +1,5 @@
-# 2.15.0 (2022-11-07)
+## 2.15.2 (2022-11-12)
 
-### Features
+### Bug Fixes
 
-- Added WPP.chat.getMessageACK function (close [#697](https://github.com/wppconnect-team/wa-js/issues/697)) ([ffc378f](https://github.com/wppconnect-team/wa-js/commit/ffc378f9ea5b8a2be31e7fa1846381dff6ef9cd6))
+- Fixed quoted message response (fix [#737](https://github.com/wppconnect-team/wa-js/issues/737)) ([c7ddbfd](https://github.com/wppconnect-team/wa-js/commit/c7ddbfd556ea39a93048d1e61f343dec641d66d1))
