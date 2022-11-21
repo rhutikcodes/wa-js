@@ -1,5 +1,5 @@
 /*!
- * Copyright 2021 WPPConnect Team
+ * Copyright 2022 WPPConnect Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,18 +14,30 @@
  * limitations under the License.
  */
 
+import * as webpack from '../../webpack';
 import { exportModule } from '../exportModule';
+import { MsgModel } from '../models';
 
-/** @whatsapp 65212
- * @whatsapp 15860 >= 2.2204.13
- * @whatsapp 465212 >= 2.2222.8
+/**
+ * @whatsapp 591988 >= 2.2244.5
  */
-export declare function randomMessageId(): string;
+export declare function canEditMessage(msg: MsgModel): boolean;
 
 exportModule(
   exports,
   {
-    randomMessageId: ['default.newId'],
+    canEditMessage: 'canEditMessage',
   },
-  (m) => m.default.newId
+  (m) => m.canEditMessage
 );
+
+webpack.injectFallbackModule('canEditMessage', {
+  canEditMessage: (msg: MsgModel) => {
+    if (!msg.isSentByMe) return false;
+    if (msg.type !== 'chat') return false;
+    if (msg.isForwarded) return false;
+    if ('out' !== msg.self) return false;
+    if (new Date().getTime() / 1e3 > msg.t! + 900) return false;
+    return true;
+  },
+});

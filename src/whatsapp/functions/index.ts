@@ -17,6 +17,7 @@
 export * from './addAndSendMsgToChat';
 export * from './blockContact';
 export * from './calculateFilehashFromBlob';
+export * from './canEditMessage';
 export * from './canReplyMsg';
 export * from './collections';
 export * from './createMsgProtobuf';
@@ -32,6 +33,7 @@ export * from './generateVideoThumbsAndDuration';
 export * from './genMinimalLinkPreview';
 export * from './getFanOutList';
 export * from './getGroupSenderKeyList';
+export * from './getHistorySyncProgress';
 export * from './getSearchContext';
 export * from './groupParticipants';
 export * from './handleAck';
