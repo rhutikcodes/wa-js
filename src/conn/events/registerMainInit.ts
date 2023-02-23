@@ -14,35 +14,17 @@
  * limitations under the License.
  */
 
-import { exportModule } from '../exportModule';
+import { internalEv } from '../../eventEmitter';
+import * as webpack from '../../webpack';
+import { isMainInit } from '../functions';
 
-/** @whatsapp 56981
- * @whatsapp 383674 >= 2.2228.4
- */
-export declare function sendCallSignalingMsg(
-  data: {
-    common: {
-      type?: string;
-      call_id?: string;
-      peer_jid: string;
-    };
-    payload: [
-      string,
-      {
-        'call-id': string;
-        'call-creator': string;
-        count?: any;
-      },
-      null
-    ];
-  },
-  tagId?: string
-): Promise<{ payload: any; status: 200 }>;
+webpack.onInjected(register);
 
-exportModule(
-  exports,
-  {
-    sendCallSignalingMsg: 'sendCallSignalingMsg',
-  },
-  (m) => m.sendCallSignalingMsg
-);
+function register() {
+  const check = setInterval(() => {
+    if (isMainInit()) {
+      clearInterval(check);
+      internalEv.emit('conn.main_init');
+    }
+  }, 100);
+}

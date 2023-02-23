@@ -15,8 +15,10 @@
  */
 
 import './registerAckMessageEvent';
+import './registerActiveChatEvent';
 import './registerLiveLocationUpdateEvent';
 import './registerNewMessageEvent';
+import './registerPollEvent';
 import './registerPresenceChange';
-import './registerRevokeMessageEvent';
 import './registerReactionsEvent';
+import './registerRevokeMessageEvent';

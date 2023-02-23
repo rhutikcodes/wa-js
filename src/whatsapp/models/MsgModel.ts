@@ -281,6 +281,8 @@ interface Derived {
   asImage?: any;
   asVideo?: any;
   asMms?: any;
+  asPollCreation?: any;
+  asPollUpdate?: any;
   asUrl?: any;
   asRevoked?: any;
   asViewOnce?: any;
@@ -315,6 +317,11 @@ interface Derived {
   hasBodyOrFooter: boolean;
   initialPageSize?: any;
   productListHeaderImage?: any;
+  pollInvalidated?: boolean;
+  pollName?: string;
+  pollOptions?: any;
+  pollSelectableOptionsCount?: number;
+  pollUpdateParentKey?: any;
 }
 
 /** @whatsapp 17304 */
@@ -357,7 +364,10 @@ export declare class MsgModel extends Model {
   downloadMedia(e?: any): any;
   applyUpdate(e?: any): any;
   waitForPrep(): any;
-  quotedMsgObj(): any;
+  /**
+   * @whatsapp < 2.2245.8
+   */
+  quotedMsgObj?(): any;
   getQuotedMsgAdminGroupJid(): any;
   msgContextInfo(chatId: Wid): any;
   displayName(e?: any, t?: any): any;

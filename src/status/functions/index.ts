@@ -21,3 +21,4 @@ export { sendRawStatus, SendStatusOptions } from './sendRawStatus';
 export { sendReadStatus } from './sendReadStatus';
 export { sendTextStatus, TextStatusOptions } from './sendTextStatus';
 export { sendVideoStatus, VideoStatusOptions } from './sendVideoStatus';
+export { updateParticipants } from './updateParticipants';

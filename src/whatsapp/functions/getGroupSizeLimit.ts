@@ -1,5 +1,5 @@
 /*!
- * Copyright 2021 WPPConnect Team
+ * Copyright 2022 WPPConnect Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,24 +15,16 @@
  */
 
 import { exportModule } from '../exportModule';
-import { LiveLocationModel } from '../models';
-import { BaseCollection } from '.';
 
-/** @whatsapp 85865
- * @whatsapp 985865 >= 2.2222.8
+/**
+ * @whatsapp 97858 >= 2.2304.7
  */
-export declare class LiveLocationCollection extends BaseCollection<LiveLocationModel> {
-  static model: LiveLocationModel;
-  static staleCollection?: any;
-  static resumeOnAvailable?: any;
-  getActive(e?: any): any;
-  processMsg(e?: any, t?: boolean): any;
-  removeMsg(e?: any): any;
-}
+export declare function getGroupSizeLimit(groupType?: string): number;
+
 exportModule(
   exports,
   {
-    LiveLocationCollection: 'LiveLocationCollectionImpl',
+    getGroupSizeLimit: 'getGroupSizeLimit',
   },
-  (m) => m.LiveLocationCollectionImpl
+  (m) => m.getGroupSizeLimit
 );

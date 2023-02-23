@@ -1,5 +1,5 @@
-## 2.16.1 (2022-11-21)
+# 2.20.0 (2023-02-21)
 
-### Bug Fixes
+### Features
 
-- Fixed DataCloneError error after WPP.contact.queryExists call ([fabe916](https://github.com/wppconnect-team/wa-js/commit/fabe916ed8c52e4dfc3d3fb13afc7d9c54422251))
+- Added sendStatusToDevice option to avoid app crashing ([d762d3a](https://github.com/wppconnect-team/wa-js/commit/d762d3a84bfc5ca8a164e7e2614453ab5114d301))

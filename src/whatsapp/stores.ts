@@ -62,10 +62,6 @@ export declare const GroupMetadataStore: collections.GroupMetadataCollection;
  * @whatsapp 316770 >= 2.2222.8
  */
 export declare const LabelStore: collections.LabelCollection;
-/** @whatsapp 85865
- * @whatsapp 985865 >= 2.2222.8
- */
-export declare const LiveLocationStore: collections.LiveLocationCollection;
 /** @whatsapp 59871
  * @whatsapp 559871 >= 2.2222.8
  */
@@ -141,7 +137,6 @@ const storeNames = [
   'EmojiVariantStore',
   'GroupMetadataStore',
   'LabelStore',
-  'LiveLocationStore',
   'MsgStore',
   'MsgInfoStore',
   'MuteStore',

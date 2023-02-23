@@ -14,9 +14,20 @@
  * limitations under the License.
  */
 
-import { MsgKey, MsgModel, Wid } from '../../whatsapp';
+import { ChatModel, MsgKey, MsgModel, Wid } from '../../whatsapp';
 
 export interface ChatEventTypes {
+  /**
+   * Triggered when change the active chat
+   *
+   * @example
+   * ```javascript
+   * WPP.on('chat.active_chat', (chat) => {
+   *   // Your code
+   * });
+   * ```
+   */
+  'chat.active_chat': ChatModel;
   /**
    * Triggered when new message is received
    *
@@ -74,6 +85,9 @@ export interface ChatEventTypes {
     degrees?: number;
     shareDuration: number;
   };
+  /**
+   * @deprecated Temporary unsuported by WhatsApp Web Multi-Device
+   */
   'chat.live_location_update': {
     id: Wid;
     lastUpdated: number;
@@ -85,6 +99,9 @@ export interface ChatEventTypes {
     degrees?: number;
     comment: string;
   };
+  /**
+   * @deprecated Temporary unsuported by WhatsApp Web Multi-Device
+   */
   'chat.live_location_end': {
     id: Wid;
     chat: Wid;
@@ -138,5 +155,16 @@ export interface ChatEventTypes {
       state: string;
       shortName: string;
     }[];
+  };
+
+  /**
+   * On Poll response
+   */
+  'chat.poll_response': {
+    msgId: MsgKey;
+    chatId: Wid;
+    selectedOptions: number[];
+    timestamp: number;
+    sender: Wid;
   };
 }

@@ -24,13 +24,21 @@ export declare function sendAddParticipants(
   group: Wid,
   participants: Wid[]
 ): Promise<{
-  participants?: {
-    [key: `${number}@c.us`]: {
-      code: string;
-      invite_code: string | null;
-      invite_code_exp: string | null;
-    };
-  }[];
+  participants?: (
+    | {
+        [key: `${number}@c.us`]: {
+          code: string;
+          invite_code: string | null;
+          invite_code_exp: string | null;
+        };
+      }
+    | {
+        userWid: Wid;
+        code: string;
+        invite_code: string | null;
+        invite_code_exp: string | null;
+      }
+  )[];
   status: number;
   [key: `${number}@c.us`]: number;
 }>;
@@ -62,14 +70,27 @@ export declare function sendDemoteParticipants(
 exportModule(
   exports,
   {
-    sendAddParticipants: 'sendAddParticipants',
-    sendRemoveParticipants: 'sendRemoveParticipants',
-    sendPromoteParticipants: 'sendPromoteParticipants',
-    sendDemoteParticipants: 'sendDemoteParticipants',
+    sendAddParticipants: ['sendAddParticipants', 'addGroupParticipants'],
+    sendRemoveParticipants: [
+      'sendRemoveParticipants',
+      'removeGroupParticipants',
+    ],
+    sendPromoteParticipants: [
+      'sendPromoteParticipants',
+      'promoteGroupParticipants',
+    ],
+    sendDemoteParticipants: [
+      'sendDemoteParticipants',
+      'demoteGroupParticipants',
+    ],
   },
   (m) =>
-    m.sendAddParticipants &&
-    m.sendRemoveParticipants &&
-    m.sendPromoteParticipants &&
-    m.sendDemoteParticipants
+    (m.sendAddParticipants &&
+      m.sendRemoveParticipants &&
+      m.sendPromoteParticipants &&
+      m.sendDemoteParticipants) || // @whatsapp < 2.2301.5
+    (m.addGroupParticipants &&
+      m.removeGroupParticipants &&
+      m.promoteGroupParticipants &&
+      m.demoteGroupParticipants) // @whatsapp >= 2.2301.5
 );
